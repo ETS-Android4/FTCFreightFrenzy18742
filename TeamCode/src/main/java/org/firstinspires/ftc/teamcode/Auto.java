@@ -13,10 +13,10 @@ public class Auto extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        motorBase.motor_init(this);
+        motorBase.init(this);
         waitForStart();
-        while (motorBase.getForwardDistants()<100 && opModeIsActive()) {
-motorBase.move(1,0,0);
-        }
+
+        //motorBase.goToPosition(0.0,0);
+        motorBase.goToPosition(0,50.0);
     }
 }
