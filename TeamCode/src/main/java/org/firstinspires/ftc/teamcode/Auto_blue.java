@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous
-public class Auto extends LinearOpMode {
+public class Auto_blue extends LinearOpMode {
 
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -18,5 +18,6 @@ public class Auto extends LinearOpMode {
 
         //motorBase.goToPosition(0.0,0);
         motorBase.goToPosition(0,50.0);
+        motorBase.goToPosition(80,0);
     }
 }

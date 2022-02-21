@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 import static java.lang.Math.abs;
 
+
 public class MotorBase {
     //public DcMotor Elevator = null;
     private LinearOpMode linearOpMode = null;
@@ -29,17 +30,16 @@ public class MotorBase {
 
     public void init(LinearOpMode linearOpMode) {
         this.linearOpMode = linearOpMode;
-        leftDrive = linearOpMode.hardwareMap.get(DcMotor.class, "left_drive");
-        rightDrive = linearOpMode.hardwareMap.get(DcMotor.class, "right_drive");
-        leftDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "left_drive1");
-        rightDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "right_drive1");
+        leftDrive = linearOpMode.hardwareMap.get(DcMotor.class, "L1");
+        rightDrive = linearOpMode.hardwareMap.get(DcMotor.class, "R1");
+        leftDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "L2");
+        rightDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "R2");
         //Elevator = linearOpMode.hardwareMap.get(DcMotor.class,"Elevator");
 
         leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
         rightDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive1.setDirection(DcMotorSimple.Direction.REVERSE);
-        //Elevator.setDirection(DcMotorSimple.Direction.REVERSE);
         leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftDrive1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -58,11 +58,16 @@ public class MotorBase {
         leftPower2 = drive + turn - side;
         rightPower2 = drive - turn + side;
 
-        leftDrive1.setPower(leftPower2);
-        leftDrive.setPower(leftPower1);
-        rightDrive1.setPower(rightPower2);
-        rightDrive.setPower(rightPower1);
+        setMotorPowers(leftPower1, rightPower1, leftPower2, rightPower2);
     }
+
+    public void setMotorPowers(double powerFL, double powerFR, double powerRL, double powerRR){
+        leftDrive1.setPower(powerRL);
+        leftDrive.setPower(powerFL);
+        rightDrive1.setPower(powerRR);
+        rightDrive.setPower(powerFR);
+    }
+
 
     /*public void elevator(double direction){
         Elevator.setPower(0);
