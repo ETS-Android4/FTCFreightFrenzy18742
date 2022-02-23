@@ -2,13 +2,18 @@ package org.firstinspires.ftc.teamcode.Activities;
 
 import static java.lang.Math.abs;
 
+import android.icu.text.Transliterator;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
+import org.firstinspires.ftc.teamcode.Sensors.RobotPosition;
+
 
 public class MotorBase {
-    //public DcMotor Elevator = null;
+
+    private RobotPosition position = new RobotPosition();
     private LinearOpMode linearOpMode = null;
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
@@ -19,15 +24,15 @@ public class MotorBase {
     private static final double encoderTicksToCm = (Math.PI * d) / encoderTicksPerRevolution;
     private double correction = 1.0;
 
-    public double getForwardDistance() {
+    /*public double getForwardDistance() {
         return (leftDrive.getCurrentPosition() + leftDrive1.getCurrentPosition() + rightDrive.getCurrentPosition()
                 + rightDrive1.getCurrentPosition()) * 0.25 * encoderTicksToCm;
-    }
+    }*/
 
-    public double getSideDistance() {
+    /*public double getSideDistance() {
         return (leftDrive.getCurrentPosition() - leftDrive1.getCurrentPosition() - rightDrive.getCurrentPosition()
                 + rightDrive1.getCurrentPosition()) * 0.25 * encoderTicksToCm;
-    }
+    }*/
 
     public void init(LinearOpMode linearOpMode) {
         this.linearOpMode = linearOpMode;
@@ -35,7 +40,6 @@ public class MotorBase {
         rightDrive = linearOpMode.hardwareMap.get(DcMotor.class, "R1");
         leftDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "L2");
         rightDrive1 = linearOpMode.hardwareMap.get(DcMotor.class, "R2");
-        //Elevator = linearOpMode.hardwareMap.get(DcMotor.class,"Elevator");
 
         leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         leftDrive1.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -70,22 +74,15 @@ public class MotorBase {
         rightDrive.setPower(powerFR);
     }
 
-
-    /*public void elevator(double direction){
-        Elevator.setPower(0);
-        if(direction == 1){ Elevator.setPower(1);}
-        else if(direction == -1){ Elevator.setPower(-1);}
-    }*/
-
     public void goToPosition(double x, double y) {
-        resetEncoders();
+        //resetEncoders();
         double kP = 0.1;
-        double errorX = x - getSideDistance();
-        double errorY = y - getForwardDistance();
+        double errorX = x - position.position_x();
+        double errorY = y - position.position_y();
 
         while ((abs(errorX) > 5 || abs(errorY) > 5) && linearOpMode.opModeIsActive()) {
-            errorX = x - getSideDistance();
-            errorY = y - getForwardDistance();
+            errorX = x - position.position_x();
+            errorY = y - position.position_y();
             move(errorY * kP, errorX * kP, 0);
         }
     }

@@ -7,7 +7,7 @@ import org.firstinspires.ftc.teamcode.Activities.Bucket;
 import org.firstinspires.ftc.teamcode.Sensors.ButtonSwitch;
 import org.firstinspires.ftc.teamcode.Activities.Intake;
 import org.firstinspires.ftc.teamcode.Activities.MotorBase;
-import org.firstinspires.ftc.teamcode.Sensors.Position;
+import org.firstinspires.ftc.teamcode.Sensors.RobotPosition;
 import org.firstinspires.ftc.teamcode.Activities.Slide;
 
 @TeleOp
@@ -17,7 +17,7 @@ public class TeleOpSticks extends LinearOpMode {
     private final Slide slide = new Slide();
     private final Intake intake = new Intake();
     public Bucket bucket = new Bucket();
-    public final Position position = new Position();
+    public final RobotPosition position = new RobotPosition();
 
     public boolean intakeBlock = false;
     public boolean liftBlock = false;
@@ -48,12 +48,16 @@ public class TeleOpSticks extends LinearOpMode {
             slideFunction();
             intakeFunction();
             speedFunction();
+            positionFunction();
             //speed = Math.abs(gamepad1.touchpad_finger_1_x);
-
-            telemetry.addLine("Endstop").addData("start", slide.digitalTouch_start.getState()).addData("end", slide.digitalTouch_end.getState());
-            telemetry.update();
-
         }
+    }
+
+    public void positionFunction(){
+        telemetry.addData("X:", position.position_x());
+        telemetry.addData("Y:", position.position_y());
+        telemetry.addData("ANGLE(degrees):", position.position_angle());
+        telemetry.update();
     }
 
     public void bucketFunction() {

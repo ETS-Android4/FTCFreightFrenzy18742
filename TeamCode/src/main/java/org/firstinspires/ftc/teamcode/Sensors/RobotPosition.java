@@ -1,0 +1,32 @@
+package org.firstinspires.ftc.teamcode.Sensors;
+
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+
+@Config
+public class RobotPosition {
+
+    private LinearOpMode linearOpMode = null;
+    private DcMotor position_y_left = null;
+    private DcMotor position_y_right = null;
+    private DcMotor position_x = null;
+
+    private double PointsPerWheelRotation =  8192;
+    private double CmPerRotation = 10;
+    private double CmPerRobotRotation = 40;
+
+    public void init(LinearOpMode linearOpMode){
+        position_y_left = linearOpMode.hardwareMap.get(DcMotor.class,"x_left");
+        position_y_right = linearOpMode.hardwareMap.get(DcMotor.class,"x_right");
+        position_x = linearOpMode.hardwareMap.get(DcMotor.class,"y");
+        position_y_left.setDirection(DcMotorSimple.Direction.FORWARD);
+        position_y_right.setDirection(DcMotorSimple.Direction.FORWARD);
+        position_x.setDirection(DcMotorSimple.Direction.FORWARD);
+    }
+
+    public double position_x(){ return (position_y_right.getCurrentPosition() + position_y_left.getCurrentPosition())/2.0/PointsPerWheelRotation * CmPerRotation; }
+    public double position_y(){ return (position_x.getCurrentPosition())/ PointsPerWheelRotation * CmPerRotation; }
+    public double position_angle(){ return (position_y_left.getCurrentPosition() - position_y_right.getCurrentPosition())/2.0/CmPerRotation*360.0; }
+}

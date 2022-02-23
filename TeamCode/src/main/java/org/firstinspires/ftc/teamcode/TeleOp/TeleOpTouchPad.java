@@ -45,10 +45,6 @@ public class TeleOpTouchPad extends LinearOpMode {
             slideFunction();
             intakeFunction();
             speedFunction();
-
-            telemetry.addLine("Endstop").addData("start", slide.digitalTouch_start.getState()).addData("end", slide.digitalTouch_end.getState());
-            telemetry.update();
-
         }
     }
 
