@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Sensors;
 
 /**
  * Class that turns a usual gamepad button into an ON/OFF switch

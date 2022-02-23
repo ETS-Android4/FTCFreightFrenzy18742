@@ -1,10 +1,10 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Activities;
+
+import static java.lang.Math.abs;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
-
-import static java.lang.Math.abs;
 
 
 public class MotorBase {
@@ -17,6 +17,7 @@ public class MotorBase {
     private static final double d = 9.8;
     private static final double encoderTicksPerRevolution = 1440 / 3.0;
     private static final double encoderTicksToCm = (Math.PI * d) / encoderTicksPerRevolution;
+    private double correction = 1.0;
 
     public double getForwardDistance() {
         return (leftDrive.getCurrentPosition() + leftDrive1.getCurrentPosition() + rightDrive.getCurrentPosition()
@@ -48,6 +49,7 @@ public class MotorBase {
     }
 
     public void move(double drive, double side, double turn) {
+        drive = drive * correction;
         double leftPower1;
         double rightPower1;
         double leftPower2;

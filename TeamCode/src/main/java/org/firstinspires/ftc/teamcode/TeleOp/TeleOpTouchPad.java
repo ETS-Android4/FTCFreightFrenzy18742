@@ -1,7 +1,13 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.Activities.Bucket;
+import org.firstinspires.ftc.teamcode.Sensors.ButtonSwitch;
+import org.firstinspires.ftc.teamcode.Activities.Intake;
+import org.firstinspires.ftc.teamcode.Activities.MotorBase;
+import org.firstinspires.ftc.teamcode.Activities.Slide;
 
 @TeleOp
 public class TeleOpTouchPad extends LinearOpMode {

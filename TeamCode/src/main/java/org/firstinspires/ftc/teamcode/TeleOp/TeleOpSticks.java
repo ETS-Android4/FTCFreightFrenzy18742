@@ -1,8 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.Activities.Bucket;
+import org.firstinspires.ftc.teamcode.Sensors.ButtonSwitch;
+import org.firstinspires.ftc.teamcode.Activities.Intake;
+import org.firstinspires.ftc.teamcode.Activities.MotorBase;
+import org.firstinspires.ftc.teamcode.Sensors.Position;
+import org.firstinspires.ftc.teamcode.Activities.Slide;
 
 @TeleOp
 public class TeleOpSticks extends LinearOpMode {
@@ -11,6 +17,7 @@ public class TeleOpSticks extends LinearOpMode {
     private final Slide slide = new Slide();
     private final Intake intake = new Intake();
     public Bucket bucket = new Bucket();
+    public final Position position = new Position();
 
     public boolean intakeBlock = false;
     public boolean liftBlock = false;
