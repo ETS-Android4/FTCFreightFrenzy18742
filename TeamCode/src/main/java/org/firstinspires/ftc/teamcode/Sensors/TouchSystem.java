@@ -18,8 +18,8 @@ public class TouchSystem {
         digitalTouch_end.setMode(DigitalChannel.Mode.INPUT);
     }
 
-    public boolean getTouch(double position) {
-        if (position == 0) { return digitalTouch_start.getState(); }
-        else { return digitalTouch_end.getState(); }
+    public boolean getTouch(int position) {
+        if (position == 0) { return !digitalTouch_start.getState(); }
+        else { return !digitalTouch_end.getState(); }
     }
 }

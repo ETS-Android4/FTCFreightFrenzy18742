@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.Activities.Intake;
 import org.firstinspires.ftc.teamcode.Activities.MotorBase;
 import org.firstinspires.ftc.teamcode.Activities.Slide;
 
-@TeleOp
+//@TeleOp
 public class TeleOpTouchPad extends LinearOpMode {
 
     private final MotorBase motorBase = new MotorBase();
@@ -53,8 +53,8 @@ public class TeleOpTouchPad extends LinearOpMode {
     }
 
     public void slideFunction() {
-        if (liftSwitch.updateSwitchState(gamepad1.cross)) slide.setMotorTarget(-1, extra);
-        else slide.setMotorTarget(1, extra);
+        if (liftSwitch.updateSwitchState(gamepad1.cross)) slide.setMotorTarget(1, extra);
+        else slide.setMotorTarget(-1, extra);
     }
 
     public void intakeFunction() {

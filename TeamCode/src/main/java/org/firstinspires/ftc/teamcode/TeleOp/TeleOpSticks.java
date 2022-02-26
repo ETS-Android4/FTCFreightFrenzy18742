@@ -34,6 +34,7 @@ public class TeleOpSticks extends LinearOpMode {
         slide.init(this);
         bucket.init(this);
         intake.init(this);
+        //position.init(this);
 
         waitForStart();
         while (opModeIsActive()) {
@@ -44,12 +45,12 @@ public class TeleOpSticks extends LinearOpMode {
             motorBase.move(drive*speed, side*speed, turn*speed);
             // Button functions
             bucketFunction();
-            extraLift();
+            //// extraLift();
             slideFunction();
             intakeFunction();
-            speedFunction();
-            positionFunction();
-            //speed = Math.abs(gamepad1.touchpad_finger_1_x);
+            //  speedFunction();
+            //  positionFunction()
+            // speed = Math.abs(gamepad1.touchpad_finger_1_x);
         }
     }
 
@@ -65,8 +66,8 @@ public class TeleOpSticks extends LinearOpMode {
     }
 
     public void slideFunction() {
-        if (liftSwitch.updateSwitchState(gamepad1.cross)) slide.setMotorTarget(-1, extra);
-        else slide.setMotorTarget(1, extra);
+        if (liftSwitch.updateSwitchState(gamepad1.cross)) slide.setMotorTarget(1, extra);
+        else slide.setMotorTarget(-1, extra);
     }
 
     public void intakeFunction() {
