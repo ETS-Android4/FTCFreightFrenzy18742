@@ -54,9 +54,9 @@ public class TeleOpSticks extends LinearOpMode {
     }
 
     public void positionFunction(){
-        telemetry.addData("X:", position.position_x());
-        telemetry.addData("Y:", position.position_y());
-        telemetry.addData("ANGLE(degrees):", position.position_angle());
+        telemetry.addData("X:", position.positionX());
+        telemetry.addData("Y:", position.positionY());
+        telemetry.addData("ANGLE(degrees):", position.positionAngleDegrees());
         telemetry.update();
     }
 

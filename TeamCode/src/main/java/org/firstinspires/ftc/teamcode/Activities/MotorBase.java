@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode.Activities;
 
 import static java.lang.Math.abs;
 
-import android.icu.text.Transliterator;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
@@ -77,12 +75,12 @@ public class MotorBase {
     public void goToPosition(double x, double y) {
         //resetEncoders();
         double kP = 0.1;
-        double errorX = x - position.position_x();
-        double errorY = y - position.position_y();
+        double errorX = x - position.positionX();
+        double errorY = y - position.positionY();
 
         while ((abs(errorX) > 5 || abs(errorY) > 5) && linearOpMode.opModeIsActive()) {
-            errorX = x - position.position_x();
-            errorY = y - position.position_y();
+            errorX = x - position.positionX();
+            errorY = y - position.positionY();
             move(errorY * kP, errorX * kP, 0);
         }
     }
