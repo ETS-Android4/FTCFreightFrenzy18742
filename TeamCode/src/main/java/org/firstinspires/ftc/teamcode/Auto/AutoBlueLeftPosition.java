@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.teamcode.Activities.AutoPlus;
 import org.firstinspires.ftc.teamcode.Activities.Bucket;
 import org.firstinspires.ftc.teamcode.Activities.Intake;
@@ -40,6 +43,7 @@ public class AutoBlueLeftPosition extends LinearOpMode {
         autoPlus.init(this);
         // - OpenCV -
         variation = arucoDetect.forceGetPosition();
+        arucoDetect.forceGetPosition();
         switch (variation) {
             case LEFT:
                 variationB = 0;
@@ -57,7 +61,6 @@ public class AutoBlueLeftPosition extends LinearOpMode {
         telemetry.update();
         // - Action -
         waitForStart();
-        arucoDetect.stopCamera();
         AutoST();
     }
 
@@ -94,5 +97,15 @@ public class AutoBlueLeftPosition extends LinearOpMode {
                 sleep(100);
             }
         }
+    }
+    public void allTeleometry(){
+        telemetry.addData("Side Position", motorBase.getSideDistance());
+        telemetry.addData("Forward Position", motorBase.getForwardDistance());
+        telemetry.addData("Angular Position", motorBase.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
+        telemetry.addData("Right Drive ", motorBase.rightDrive.getCurrentPosition());
+        telemetry.addData("Right Drive 1", motorBase.rightDrive1.getCurrentPosition());
+        telemetry.addData("Left Drive", motorBase.leftDrive.getCurrentPosition());
+        telemetry.addData("Left Drive 1", motorBase.leftDrive1.getCurrentPosition());
+        telemetry.update();
     }
 }

@@ -15,6 +15,7 @@ import org.firstinspires.ftc.teamcode.Activities.Intake;
 import org.firstinspires.ftc.teamcode.Activities.MotorBase;
 import org.firstinspires.ftc.teamcode.Sensors.RobotPosition;
 import org.firstinspires.ftc.teamcode.Activities.Slide;
+import org.firstinspires.ftc.teamcode.Activities.Bucket.*;
 
 @TeleOp
 public class TeleOpSticks extends LinearOpMode {
@@ -35,10 +36,12 @@ public class TeleOpSticks extends LinearOpMode {
     private final ButtonSwitch servoSwitch = new ButtonSwitch();
     private final ButtonSwitch intakeSwitch = new ButtonSwitch();
     private final ButtonSwitch speedSwitch = new ButtonSwitch();
+    private final ButtonSwitch Dick = new ButtonSwitch();
     private double speed = 1.0;
     private boolean slideButton;
     private double a = 0.1, i = 0;
     public boolean ledRange = true;
+    public boolean DickBool = false;
 
     @Override
     public void runOpMode() {
@@ -74,8 +77,14 @@ public class TeleOpSticks extends LinearOpMode {
             telemetry.addData("3rd", motorBase.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).thirdAngle);*/
             telemetry.addData("ForcePosition",arucoDetect.forceGetPosition());
             telemetry.addData("TimePosition", arucoDetect.timePosition);
+            telemetry.addData("EncR", motorBase.rightDrive.getCurrentPosition());
+            telemetry.addData("EncR1", motorBase.rightDrive1.getCurrentPosition());
+            telemetry.addData("EncL", motorBase.leftDrive.getCurrentPosition());
+            telemetry.addData("EncL1", motorBase.leftDrive1.getCurrentPosition());
             telemetry.update();
-
+            if(gamepad1.ps){
+                bucket.optical = false ;
+            }
             if(ledRange){i+=a; a+=0.1;}
             else{i-=a; a+=0.1;}
             if(1.0/60.0*i > 1.0){ledRange = !ledRange; a = 0.2; i = 60;}

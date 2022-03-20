@@ -10,6 +10,7 @@ import org.firstinspires.ftc.teamcode.Activities.Bucket;
 import org.firstinspires.ftc.teamcode.Activities.Intake;
 import org.firstinspires.ftc.teamcode.Activities.MotorBase;
 import org.firstinspires.ftc.teamcode.Activities.Slide;
+import org.firstinspires.ftc.teamcode.Auto.AutoBlueLeftPosition;
 
 @Autonomous
 public class AutoTest extends LinearOpMode {
@@ -36,15 +37,10 @@ public class AutoTest extends LinearOpMode {
 
     public void AutoST(){
         runtime.reset();
-        double i = 0, a = 0;
-        ledRise(true);
-        /*autoPlus.setServoAPosition(false); autoPlus.setServoBPosition(true); sleep(1000); // -init-
-        motorBase.goToPosition(0,200); autoPlus.setServoAPosition(true); sleep(1000);
-        autoPlus.setServoBPosition(false); sleep(1000);
-        autoPlus.setServoAPosition(false); sleep(1000);
-        autoPlus.setServoBPosition(true); sleep(1000);*/
-        motorBase.TurnP(90);
-        ledRise(false);
+        motorBase.move(0.3,0,0); sleep(1800);
+        motorBase.TurnP(70);
+        motorBase.move(0.3,0,0); sleep(1000);
+        motorBase.move(0,0,0);
     }
 
     public void ledRise(boolean d){
