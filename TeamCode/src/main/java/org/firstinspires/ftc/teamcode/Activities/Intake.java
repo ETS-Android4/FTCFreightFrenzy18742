@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Activities;
 
 import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.hardware.lynx.LynxServoController;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.AnalogInput;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -10,43 +11,45 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Config
 public class Intake {
-    public DcMotor intakeMotor = null;
-    private DcMotor ledStrip = null;
-    private AnalogInput freightSensor = null;
+    public static double reverseSpeed = 0.5d;
+    public static double reverseTime = 1.0d;
+    public static double voltageThreshold = 0.5d;
     private DigitalChannel digitalTouch_start;
-
-    private double lastSpeed = 0;
+    public AnalogInput freightSensor = null;
+    public DcMotor intakeMotor = null;
+    private double lastSpeed = LynxServoController.apiPositionFirst;
+    private DcMotor ledStrip = null;
     private ElapsedTime reverseTimer = new ElapsedTime();
 
-    public static double reverseTime = 1.0;
-    public static double reverseSpeed = 0.5;
-
     public void init(LinearOpMode linearOpMode) {
-        intakeMotor = linearOpMode.hardwareMap.get(DcMotor.class, "brushMotor");
-        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        ledStrip = linearOpMode.hardwareMap.get(DcMotor.class, "ledStrip");
-        ledStrip.setDirection(DcMotorSimple.Direction.FORWARD);
-        freightSensor = linearOpMode.hardwareMap.get(AnalogInput.class, "freightSensor");
-        digitalTouch_start = linearOpMode.hardwareMap.get(DigitalChannel.class, "sensor_start");
-        digitalTouch_start.setMode(DigitalChannel.Mode.INPUT);
+        DcMotor dcMotor = (DcMotor) linearOpMode.hardwareMap.get(DcMotor.class, "brushMotor");
+        this.intakeMotor = dcMotor;
+        dcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        DcMotor dcMotor2 = (DcMotor) linearOpMode.hardwareMap.get(DcMotor.class, "ledStrip");
+        this.ledStrip = dcMotor2;
+        dcMotor2.setDirection(DcMotorSimple.Direction.FORWARD);
+        this.freightSensor = (AnalogInput) linearOpMode.hardwareMap.get(AnalogInput.class, "freightSensor");
+        DigitalChannel digitalChannel = (DigitalChannel) linearOpMode.hardwareMap.get(DigitalChannel.class, "sensor_start");
+        this.digitalTouch_start = digitalChannel;
+        digitalChannel.setMode(DigitalChannel.Mode.INPUT);
     }
 
-    public static double voltageThreshold = .5;
-
     public boolean isFreightDetected() {
-        return freightSensor.getVoltage() > voltageThreshold;
+        return this.freightSensor.getVoltage() > voltageThreshold;
     }
 
     public void IntakeMotor(double speed) {
-        boolean freightDetected = isFreightDetected();
-        ledStrip.setPower(freightDetected ? 1 : 0);
-        if (digitalTouch_start.getState() || isFreightDetected())
-            speed = 0;
-        if (speed == 0 && lastSpeed > 0)
-            reverseTimer.reset();
-        if (reverseTimer.seconds() < reverseTime)
+        this.ledStrip.setPower(isFreightDetected() ? 1.0d : 0.0d);
+        if (this.digitalTouch_start.getState() || isFreightDetected()) {
+            speed = LynxServoController.apiPositionFirst;
+        }
+        if (speed == LynxServoController.apiPositionFirst && this.lastSpeed > LynxServoController.apiPositionFirst) {
+            this.reverseTimer.reset();
+        }
+        if (this.reverseTimer.seconds() < reverseTime) {
             speed = -reverseSpeed;
-        intakeMotor.setPower(speed);
-        lastSpeed = speed; //
+        }
+        this.intakeMotor.setPower(speed);
+        this.lastSpeed = speed;
     }
 }

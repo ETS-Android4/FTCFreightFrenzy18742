@@ -9,30 +9,37 @@ import com.qualcomm.robotcore.util.Range;
 
 @Config
 public class Bucket {
+    public static double position1 = 0.15d;
+    public static double position2 = 0.5d;
+    public static double servoSpeedSeconds = 0.1d;
+    private ElapsedTime blockTimer = new ElapsedTime();
     DigitalChannel digitalTouch_end;
-
-    private Servo servo = null;
+    Intake intake = new Intake();
+    public Servo servo = null;
     private boolean servoLast = false;
     private ElapsedTime servoTimer = new ElapsedTime();
-    public static double position1 = 0.15;
-    public static double position2 = 0.50;
-
-    public static double servoSpeedSeconds = 0.1;
 
     public void init(LinearOpMode linearOpMode) {
-        servo = linearOpMode.hardwareMap.get(Servo.class, "frow");
-        digitalTouch_end = linearOpMode.hardwareMap.get(DigitalChannel.class, "sensor_end");
-        digitalTouch_end.setMode(DigitalChannel.Mode.INPUT);
+        this.servo = (Servo) linearOpMode.hardwareMap.get(Servo.class, "frow");
+        DigitalChannel digitalChannel = (DigitalChannel) linearOpMode.hardwareMap.get(DigitalChannel.class, "sensor_end");
+        this.digitalTouch_end = digitalChannel;
+        digitalChannel.setMode(DigitalChannel.Mode.INPUT);
+        this.intake.init(linearOpMode);
     }
 
-    public void setServoPosition(boolean servo) {
-        servo = servo && !digitalTouch_end.getState();
-        if (servo && !servoLast)
-            servoTimer.reset();
-        if (servo)
-            this.servo.setPosition(Range.clip(position1 + servoTimer.seconds() * (Math.abs(position2 - position1) / servoSpeedSeconds), position1, position2));
-        else
+    public void setServoPosition(boolean servo2) {
+        if (this.intake.isFreightDetected()) {
+            this.blockTimer.reset();
+        }
+        boolean servo3 = servo2 && !this.digitalTouch_end.getState();
+        if (servo3 && !this.servoLast && this.blockTimer.milliseconds() < 300.0d) {
+            this.servoTimer.reset();
+        }
+        if (!servo3 || this.blockTimer.milliseconds() >= 300.0d) {
             this.servo.setPosition(position1);
-        servoLast = servo;
+        } else {
+            this.servo.setPosition(Range.clip(position1 + (this.servoTimer.seconds() * (Math.abs(position2 - position1) / servoSpeedSeconds)), position1, position2));
+        }
+        this.servoLast = servo3;
     }
 }
