@@ -11,6 +11,7 @@ import org.firstinspires.ftc.teamcode.Activities.Intake;
 import org.firstinspires.ftc.teamcode.Activities.MotorBase;
 import org.firstinspires.ftc.teamcode.Activities.Slide;
 import org.firstinspires.ftc.teamcode.OpenCV.ArucoDetect;
+import org.firstinspires.ftc.teamcode.OpenCV.ArucoDetect.*;
 import org.firstinspires.ftc.teamcode.OpenCV.FreightPosition;
 
 @Autonomous
@@ -31,7 +32,6 @@ public class AutoBlueLeftPosition extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        telemetry = FtcDashboard.getInstance().getTelemetry();
         arucoDetect.initialize(this);
         motorBase.init(this);
         slide.init(this);
@@ -51,12 +51,13 @@ public class AutoBlueLeftPosition extends LinearOpMode {
                 variationB = 2;
                 break;
         }
-        arucoDetect.stopCamera();
         telemetry.addData("Pos", arucoDetect.forceGetPosition());
         telemetry.addData("Variation", variation);
+        telemetry.addData("odasfawes", arucoDetect.timePosition);
         telemetry.update();
         // - Action -
         waitForStart();
+        arucoDetect.stopCamera();
         AutoST();
     }
 

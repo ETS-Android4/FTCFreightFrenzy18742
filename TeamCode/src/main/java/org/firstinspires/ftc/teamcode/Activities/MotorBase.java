@@ -93,14 +93,13 @@ public class MotorBase {
         double d2 = (double) motorBase.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double errorX = x - getSideDistance();
         double errorY = y - getForwardDistance();
-        while (true) {
+        while (linearOpMode.opModeIsActive()) {
             if ((Math.abs(errorX) > 5.0d || Math.abs(errorY) > 5.0d) && motorBase.linearOpMode.opModeIsActive()) {
                 errorX = x - getSideDistance();
                 errorY = y - getForwardDistance();
                 move(errorY * 0.1d, errorX * 0.1d, ((double) motorBase.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle) * 0.05d);
                 motorBase = this;
             }
-
         }
         setMotorPowers(0,0,0,0);
     }

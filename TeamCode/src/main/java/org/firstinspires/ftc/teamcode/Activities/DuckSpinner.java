@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Activities;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
@@ -20,4 +21,5 @@ public class DuckSpinner {
 
     public void duck_spin_final(boolean u) {
     }
+
 }
