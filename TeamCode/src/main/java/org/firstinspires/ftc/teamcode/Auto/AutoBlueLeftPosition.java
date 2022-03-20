@@ -65,12 +65,12 @@ public class AutoBlueLeftPosition extends LinearOpMode {
         runtime.reset();
         ledRise(true);
         autoPlus.setServoAPosition(false); autoPlus.setServoBPosition(true); sleep(500);
-        motorBase.goToPosition(0, -distances[variationB]); motorBase.TurnP(angles[variationB]);
+        motorBase.GoToPosition(0, -distances[variationB]); motorBase.TurnP(angles[variationB]);
         autoPlus.setServoAPosition(true); sleep(500);
         autoPlus.setServoBPosition(false); sleep(500);
         autoPlus.setServoAPosition(false); autoPlus.setServoBPosition(true); sleep(500);
         motorBase.TurnP(0);
-        motorBase.goToPosition(0,distances[variationB]);
+        motorBase.GoToPosition(0,distances[variationB]);
         //motorBase.TurnP(90);
         //motorBase.goToPosition(-10,0);
         //motorBase.goToPosition(0,50);

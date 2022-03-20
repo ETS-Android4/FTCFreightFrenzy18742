@@ -81,14 +81,14 @@ public class MotorBase {
             }
         }
         double errorAngle2 = errorAngle;
-        while (Math.abs(errorAngle2) > 4.0d) {
+        while ((Math.abs(errorAngle2) > 4.0d) && linearOpMode.opModeIsActive()) {
             errorAngle2 = angle2 - ((double) this.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle);
             move(apiPositionFirst, apiPositionFirst, (-errorAngle2) * 0.06d);
         }
         move(apiPositionFirst, apiPositionFirst, apiPositionFirst);
     }
 
-    public void goToPosition(double x, double y) {
+    public void GoToPosition(double x, double y) {
         MotorBase motorBase = this;
         double d2 = (double) motorBase.gyro.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
         double errorX = x - getSideDistance();
@@ -101,8 +101,10 @@ public class MotorBase {
                 motorBase = this;
             }
         }
-        setMotorPowers(0,0,0,0);
+        StopMotors();
     }
+
+    public void StopMotors(){ move(0,0,0); }
 
     public void resetEncoders() {
         this.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);

@@ -54,7 +54,7 @@ public class AutoRedRightPosition extends LinearOpMode {
                 break;
             case RIGHT:
                 autoPlus.setServoAPosition(false); autoPlus.setServoBPosition(true); sleep(500);
-                motorBase.goToPosition(0,-36);
+                motorBase.GoToPosition(0,-36);
                 motorBase.TurnP(-40);
                 autoPlus.setServoAPosition(true); sleep(1000);
                 autoPlus.setServoBPosition(false); sleep(1000);
@@ -72,7 +72,7 @@ public class AutoRedRightPosition extends LinearOpMode {
     }
 
     public void ledRise(boolean d){
-        if(d){ while(i<61){ autoPlus.ledPlus.setPower(1.0/60.0*i); i+=a; a++; sleep(100);} }
+        if(d){ while((i<61)){ autoPlus.ledPlus.setPower(1.0/60.0*i); i+=a; a++; sleep(100);} }
         else{ while(i>0){ autoPlus.ledPlus.setPower(1.0/60.0*i); i-=a; a++; sleep(100);} }
     }
 }
